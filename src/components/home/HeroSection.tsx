@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { General } from '@/lib/content';
 
 interface HeroSectionProps {
@@ -10,23 +11,42 @@ interface HeroSectionProps {
 
 export default function HeroSection({ general }: HeroSectionProps) {
   const heroTexts = general?.hero_text || [];
+  const heroImages = general?.hero_images?.filter(Boolean) || [];
   const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselLength = heroImages.length || heroTexts.length;
 
   useEffect(() => {
-    if (heroTexts.length <= 1) return;
+    if (carouselLength <= 1) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % heroTexts.length);
-    }, 4000);
+      setCurrentIndex((prev) => (prev + 1) % carouselLength);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [heroTexts.length]);
+  }, [carouselLength]);
 
   const isVideo = general?.hero_media_type?.includes('video');
   const mediaSrc = general?.hero_media_url;
+  const activeText = heroTexts.length > 0 ? heroTexts[currentIndex % heroTexts.length] : '';
+
+  const moveCarousel = (direction: number) => {
+    setCurrentIndex((prev) => (prev + direction + carouselLength) % carouselLength);
+  };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="group relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
-      {mediaSrc && (
+      {heroImages.length > 0 ? (
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={heroImages[currentIndex % heroImages.length]}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroImages[currentIndex % heroImages.length]})` }}
+          />
+        </AnimatePresence>
+      ) : mediaSrc && (
         isVideo ? (
           <video
             autoPlay
@@ -65,21 +85,21 @@ export default function HeroSection({ general }: HeroSectionProps) {
               transition={{ duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
             >
-              {heroTexts[currentIndex]}
+              {activeText}
             </motion.h1>
           </AnimatePresence>
         </motion.div>
       </div>
 
       {/* Dots — positioned below center content */}
-      {heroTexts.length > 1 && (
+      {carouselLength > 1 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
           className="absolute z-10 bottom-28 left-1/2 -translate-x-1/2 flex gap-2"
         >
-          {heroTexts.map((_, i) => (
+          {Array.from({ length: carouselLength }, (_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
@@ -91,6 +111,27 @@ export default function HeroSection({ general }: HeroSectionProps) {
             />
           ))}
         </motion.div>
+      )}
+
+      {heroImages.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={() => moveCarousel(-1)}
+            aria-label="Previous hero image"
+            className="absolute left-4 z-20 rounded-full border border-white/30 bg-black/30 p-3 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-black/55 group-hover:opacity-100 sm:left-8"
+          >
+            <ChevronLeftIcon className="h-7 w-7" />
+          </button>
+          <button
+            type="button"
+            onClick={() => moveCarousel(1)}
+            aria-label="Next hero image"
+            className="absolute right-4 z-20 rounded-full border border-white/30 bg-black/30 p-3 text-white opacity-0 backdrop-blur-sm transition-all hover:bg-black/55 group-hover:opacity-100 sm:right-8"
+          >
+            <ChevronRightIcon className="h-7 w-7" />
+          </button>
+        </>
       )}
 
       {/* Scroll indicator — pinned to section bottom */}

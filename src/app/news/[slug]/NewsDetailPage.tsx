@@ -21,7 +21,7 @@ export default function NewsDetailPage({ post, schools, relatedPosts }: NewsDeta
     <>
       {/* Hero image */}
       {post.featured_image && (
-        <section className="relative pt-20">
+        <section className="relative pt-32">
           <div className="aspect-[21/9] max-h-[450px] overflow-hidden">
             <img
               src={post.featured_image}

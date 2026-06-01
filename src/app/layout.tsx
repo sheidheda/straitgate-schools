@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/LayoutShell";
-import { getGeneral, getSchools } from "@/lib/content";
+import { getGeneral } from "@/lib/content";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -24,7 +24,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const general = getGeneral();
-  const schools = getSchools();
 
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
@@ -32,7 +31,7 @@ export default function RootLayout({
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" async defer />
       </head>
       <body className="min-h-full flex flex-col">
-        <LayoutShell general={general} schools={schools}>
+        <LayoutShell general={general}>
           {children}
         </LayoutShell>
         <script

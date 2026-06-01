@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (
-    <section className="relative bg-dark pt-32 pb-16 overflow-hidden">
+    <section className="relative bg-dark pt-44 pb-16 overflow-hidden">
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 right-0 w-80 h-80 bg-primary rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-60 h-60 bg-accent rounded-full -translate-x-1/3 translate-y-1/3" />

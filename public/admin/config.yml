@@ -38,6 +38,11 @@ collections:
             label: "Hero Rotating Text"
             widget: "list"
             field: { name: "text", label: "Text", widget: "string" }
+          - name: "hero_images"
+            label: "Hero Carousel Images"
+            widget: "list"
+            max: 3
+            field: { name: "image", label: "Image", widget: "image" }
           - { name: "hero_media_url", label: "Hero Background Image/Video URL", widget: "image", required: false }
           - { name: "hero_media_type", label: "Hero Media Type (e.g. image/jpeg, video/mp4)", widget: "string", required: false }
 

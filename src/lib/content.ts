@@ -33,6 +33,7 @@ export interface General {
   welcome_messages: string[];
   values: string[];
   hero_text: string[];
+  hero_images?: string[];
   hero_media_url: string;
   hero_media_type: string;
 }

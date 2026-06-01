@@ -1,258 +1,287 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { School } from '@/lib/content';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  ArrowRightIcon,
+  Bars3Icon,
+  ChevronDownIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
+import { navbarSchools } from '@/lib/navigation';
 
-interface NavbarProps {
-  schools: School[];
-  logoUrl?: string;
-}
+type MenuSection = 'About Us' | 'Schools' | 'Admissions';
 
-export default function Navbar({ schools, logoUrl }: NavbarProps) {
+type MenuLink =
+  | { label: string; href: string; section?: never }
+  | { label: string; section: MenuSection; href?: never };
+
+const menuLinks: MenuLink[] = [
+  { label: 'About Us', section: 'About Us' },
+  { label: 'Schools', section: 'Schools' },
+  { label: 'Admissions', section: 'Admissions' },
+  { label: 'News', href: '/#news' },
+  { label: 'Contact Us', href: '/contact' },
+];
+
+export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [navVisible, setNavVisible] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<MenuSection | null>(null);
+  const previousScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 50);
+
+      if (currentScrollY < 10 || currentScrollY < previousScrollY.current) {
+        setNavVisible(true);
+      } else if (currentScrollY > previousScrollY.current && currentScrollY > 80) {
+        setNavVisible(false);
+      }
+
+      previousScrollY.current = currentScrollY;
+    };
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
+  }, [menuOpen]);
 
-  const navLinks = [
-    { label: 'Home', href: '/' },
-    {
-      label: 'About Us',
-      children: [
-        { label: 'History', href: '/about/history' },
-      ],
-    },
-    {
-      label: 'Schools',
-      children: schools.map((s) => ({
-        label: s.name,
-        href: `/schools/${s.initial}`,
-      })),
-    },
-    {
-      label: 'Admissions',
-      children: schools
-        .filter((s) => s.admission_url)
-        .map((s) => ({
-          label: s.name,
-          href: s.admission_url!,
-          external: true,
-        })),
-    },
-    { label: 'News', href: '/#news' },
-    { label: 'Contact', href: '/contact' },
-  ];
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setOpenSection(null);
+  };
+
+  const openMenu = (section: MenuSection | null = null) => {
+    setOpenSection(section);
+    setMenuOpen(true);
+  };
+
+  const handleHomeClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    closeMenu();
+    if (pathname === '/') {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const toggleSection = (section: MenuSection) => {
+    setOpenSection(openSection === section ? null : section);
+  };
 
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg'
-            : 'bg-transparent'
+        initial={false}
+        animate={{ y: navVisible ? 0 : '-100%' }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        className={`fixed inset-x-0 top-0 z-50 border-b text-white transition-colors duration-300 ${
+          scrolled ? 'border-white/10 bg-[#080808]/95 shadow-lg backdrop-blur-md' : 'border-white/15 bg-black/20'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <Image
-                src="/logos.png"
-                alt="Straitgate Schools"
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain"
-                priority
-              />
-              <span className={`hidden sm:block text-lg font-bold tracking-tight transition-colors ${
-                scrolled ? 'text-gray-900' : 'text-white'
-              }`}>
-                Straitgate Schools
-              </span>
-            </Link>
+        <div className="flex h-20 w-full items-stretch justify-between pl-2 sm:h-24 sm:pl-4 lg:pl-5">
+          <Link
+            href="/"
+            onClick={handleHomeClick}
+            className="flex items-center gap-3"
+            aria-label="Straitgate Schools home"
+          >
+            <Image
+              src="/logos.png"
+              alt="Straitgate Schools logos"
+              width={913}
+              height={273}
+              className="h-11 w-auto object-contain sm:h-20"
+              priority
+              unoptimized
+            />
+            <span className="hidden text-lg font-bold tracking-[0.12em] sm:block lg:text-3xl">
+              STRAITGATE SCHOOLS
+            </span>
+          </Link>
 
-            {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((item) =>
-                item.children ? (
-                  <div
-                    key={item.label}
-                    className="relative group"
-                    onMouseEnter={() => setOpenDropdown(item.label)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
-                    <button
-                      className={`flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                        scrolled
-                          ? 'text-gray-700 hover:text-primary hover:bg-primary/5'
-                          : 'text-white hover:text-white/80'
-                      }`}
-                    >
-                      {item.label}
-                      <ChevronDownIcon className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
-                    </button>
-                    <AnimatePresence>
-                      {openDropdown === item.label && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 8 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden"
-                        >
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.label}
-                              href={child.href}
-                              target={'external' in child && child.external ? '_blank' : undefined}
-                              className="block px-5 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href!}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                      scrolled
-                        ? 'text-gray-700 hover:text-primary hover:bg-primary/5'
-                        : 'text-white hover:text-white/80'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              )}
-            </nav>
-
-            {/* Mobile toggle */}
+          <div className="flex items-stretch">
             <button
-              onClick={() => setMobileOpen(true)}
-              className={`lg:hidden p-2 rounded-lg ${
-                scrolled ? 'text-gray-700' : 'text-white'
-              }`}
+              type="button"
+              onClick={() => openMenu('Admissions')}
+              className="group flex items-center gap-2 bg-primary px-4 text-xs font-extrabold uppercase tracking-[0.12em] transition-colors hover:bg-primary-dark sm:gap-4 sm:px-7 sm:text-sm"
             >
-              <Bars3Icon className="w-7 h-7" />
+              Apply
+              <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button
+              type="button"
+              onClick={() => openMenu()}
+              aria-expanded={menuOpen}
+              aria-controls="main-menu"
+              className="flex items-center gap-2 bg-[#172554] px-4 text-xs font-extrabold uppercase tracking-[0.12em] transition-colors hover:bg-[#1e3a6d] sm:gap-4 sm:px-7 sm:text-sm"
+            >
+              <Bars3Icon className="h-6 w-6" />
+              Menu
             </button>
           </div>
         </div>
       </motion.header>
 
-      {/* Mobile menu overlay */}
       <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 bottom-0 w-80 bg-white z-50 lg:hidden overflow-y-auto"
-            >
-              <div className="p-5">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/logos.png"
-                      alt="Straitgate Schools"
-                      width={100}
-                      height={34}
-                      className="h-8 w-auto object-contain"
-                    />
-                    <span className="text-sm font-bold text-gray-900">Straitgate Schools</span>
-                  </div>
-                  <button onClick={() => setMobileOpen(false)} className="p-2 text-gray-500">
-                    <XMarkIcon className="w-6 h-6" />
-                  </button>
-                </div>
-                <nav className="space-y-1">
-                  {navLinks.map((item) =>
-                    item.children ? (
-                      <div key={item.label}>
-                        <button
-                          onClick={() =>
-                            setOpenDropdown(openDropdown === item.label ? null : item.label)
-                          }
-                          className="flex items-center justify-between w-full px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
+        {menuOpen && (
+          <motion.div
+            id="main-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Main menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-[60] overflow-y-auto bg-[#080808] text-white"
+          >
+            <div className="border-b border-white/10">
+              <div className="flex h-20 w-full items-center justify-between px-2 sm:h-24 sm:px-4 lg:px-5">
+                <Link
+                  href="/"
+                  onClick={handleHomeClick}
+                  className="flex items-center gap-3"
+                  aria-label="Straitgate Schools home"
+                >
+                  <Image
+                    src="/logos.png"
+                    alt="Straitgate Schools logos"
+                    width={913}
+                    height={273}
+                    className="h-11 w-auto object-contain sm:h-14"
+                    unoptimized
+                  />
+                  <span className="hidden text-lg font-extrabold tracking-[0.12em] sm:block lg:text-xl">
+                    STRAITGATE SCHOOLS
+                  </span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={closeMenu}
+                  className="flex items-center gap-3 py-3 text-sm font-bold transition-colors hover:text-primary sm:text-base"
+                  aria-label="Close menu"
+                >
+                  <span>Close</span>
+                  <span className="rounded-full border border-white/20 p-2">
+                    <XMarkIcon className="h-5 w-5" />
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div className="grid w-full gap-10 px-2 py-10 sm:px-4 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.7fr)] lg:gap-16 lg:px-5 lg:py-16">
+              <nav aria-label="Primary navigation">
+                <ul className="divide-y divide-white/10 border-y border-white/10">
+                  {menuLinks.map((item) => (
+                    <li key={item.label}>
+                      {item.href ? (
+                        <Link
+                          href={item.href}
+                          onClick={item.href === '/' ? handleHomeClick : closeMenu}
+                          className="group flex items-center justify-between py-3 font-serif text-4xl leading-tight transition-colors hover:text-primary sm:py-4 sm:text-5xl lg:text-6xl"
                         >
                           {item.label}
-                          <ChevronDownIcon
-                            className={`w-4 h-4 transition-transform ${
-                              openDropdown === item.label ? 'rotate-180' : ''
-                            }`}
-                          />
+                          <ArrowRightIcon className="h-6 w-6 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => toggleSection(item.section as MenuSection)}
+                          aria-expanded={openSection === item.section}
+                          className="flex w-full items-center justify-between py-3 text-left font-serif text-4xl leading-tight transition-colors hover:text-primary sm:py-4 sm:text-5xl lg:text-6xl"
+                        >
+                          {item.label}
+                          <ChevronDownIcon className={`h-6 w-6 transition-transform ${openSection === item.section ? 'rotate-180' : ''}`} />
                         </button>
-                        <AnimatePresence>
-                          {openDropdown === item.label && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              className="overflow-hidden pl-4"
-                            >
-                              {item.children.map((child) => (
-                                <Link
-                                  key={child.label}
-                                  href={child.href}
-                                  target={'external' in child && child.external ? '_blank' : undefined}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="block px-4 py-2.5 text-sm text-gray-600 hover:text-primary"
-                                >
-                                  {child.label}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ) : (
-                      <Link
-                        key={item.label}
-                        href={item.href!}
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
-                      >
-                        {item.label}
-                      </Link>
-                    )
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              <div className="lg:border-l lg:border-white/10 lg:pl-12">
+                <AnimatePresence mode="wait">
+                  {!openSection && (
+                    <motion.div
+                      key="intro"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="max-w-lg"
+                    >
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary">Explore Straitgate</p>
+                      <p className="mt-5 text-xl leading-8 text-white/65">
+                        Discover our schools, learn about our story, or start an application.
+                      </p>
+                    </motion.div>
                   )}
-                </nav>
+
+                  {openSection === 'About Us' && (
+                    <motion.div key="about" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary">About Us</p>
+                      <Link href="/about/history" onClick={closeMenu} className="mt-6 block text-2xl font-semibold transition-colors hover:text-primary">
+                        Our History
+                      </Link>
+                    </motion.div>
+                  )}
+
+                  {openSection === 'Schools' && (
+                    <motion.div key="schools" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary">Our Schools</p>
+                      <ul className="mt-4 divide-y divide-white/10">
+                        {navbarSchools.map((school) => (
+                          <li key={school.name} className="py-3 text-lg font-semibold leading-7 text-white/80">
+                            {school.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+
+                  {openSection === 'Admissions' && (
+                    <motion.div key="admissions" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary">Apply To A School</p>
+                      <ul className="mt-4 divide-y divide-white/10">
+                        {navbarSchools.map((school) => (
+                          <li key={school.name}>
+                            <a
+                              href={school.admissionUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center justify-between gap-4 py-3 text-lg font-semibold leading-7 text-white/80 transition-colors hover:text-primary"
+                            >
+                              {school.name}
+                              <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </motion.div>
-          </>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
