@@ -6,15 +6,20 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 interface MissionVisionSectionProps {
   general: General;
+  /** Render only one half of the section. Omit to render both. */
+  section?: 'mission' | 'vision';
 }
 
-export default function MissionVisionSection({ general }: MissionVisionSectionProps) {
+export default function MissionVisionSection({ general, section }: MissionVisionSectionProps) {
   if (!general?.mission && !general?.vision) return null;
+
+  const showMission = section !== 'vision';
+  const showVision = section !== 'mission';
 
   return (
     <>
       {/* Mission */}
-      {general.mission && (
+      {showMission && general.mission && (
         <section className="py-20 lg:py-28 bg-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -47,7 +52,7 @@ export default function MissionVisionSection({ general }: MissionVisionSectionPr
       )}
 
       {/* Vision & Values */}
-      {(general.vision || general.values) && (
+      {showVision && (general.vision || general.values) && (
         <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
