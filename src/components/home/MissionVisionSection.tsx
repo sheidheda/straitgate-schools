@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import { General } from '@/lib/content';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-interface ExtracurricularSectionProps {
+interface MissionVisionSectionProps {
   general: General;
   /** Render only one half of the section. Omit to render both. */
   section?: 'mission' | 'vision';
 }
 
-export default function ExtracurricularSection({ general, section }: ExtracurricularSectionProps) {
+export default function MissionVisionSection({ general, section }: MissionVisionSectionProps) {
   if (!general?.mission && !general?.vision) return null;
 
   const showMission = section !== 'vision';
