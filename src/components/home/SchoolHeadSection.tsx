@@ -41,7 +41,7 @@ export default function SchoolHeadSection() {
               <div className="relative overflow-hidden bg-light shadow-2xl">
                 <div className="aspect-[4/5]">
                   <Image
-                    src="/images/avatar.png"
+                    src="/WhatsApp Image 2026-06-05 at 12.22.25.jpeg"
                     alt="Portrait of Mr Ade Adetayo, Chairman of Straitgate Schools"
                     width={900}
                     height={1125}
