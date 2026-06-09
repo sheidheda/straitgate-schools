@@ -43,10 +43,10 @@ export default function MissionVisionSection({ general, section }: MissionVision
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
               >
-                <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">
+                <span className="mb-3 inline-block font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl">
                   Our Purpose
                 </span>
-                <h2 className="text-3xl lg:text-4xl font-bold text-dark mb-6">Mission</h2>
+                <h2 className="mb-6 text-xl font-semibold leading-8 text-dark sm:text-2xl">Mission</h2>
                 <div className="space-y-3 text-gray-600 text-lg leading-relaxed">
                   {general.mission.split('\n').filter(Boolean).map((line, i) => (
                     <p key={i}>{line}</p>
@@ -71,10 +71,7 @@ export default function MissionVisionSection({ general, section }: MissionVision
               >
                 {general.vision && (
                   <div className="mb-10">
-                    <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">
-                      Our Direction
-                    </span>
-                    <h2 className="text-3xl lg:text-4xl font-bold text-dark mb-6">Vision</h2>
+                    <h2 className="mb-6 font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl">Vision</h2>
                     <div className="space-y-3 text-gray-600 text-lg leading-relaxed">
                       {general.vision.split('\n').filter(Boolean).map((line, i) => (
                         <p key={i}>{line}</p>
@@ -85,7 +82,7 @@ export default function MissionVisionSection({ general, section }: MissionVision
 
                 {general.values && general.values.length > 0 && (
                   <div>
-                    <h3 className="text-2xl font-bold text-dark mb-4">Values</h3>
+                    <h3 className="mb-4 text-xl font-semibold leading-8 text-dark sm:text-2xl">Values</h3>
                     <div className="space-y-3">
                       {general.values.map((val, i) => (
                         <div key={i} className="flex gap-3 items-start">

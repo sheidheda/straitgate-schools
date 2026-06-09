@@ -22,10 +22,10 @@ export default function CurriculumSection({ curricula }: CurriculumSectionProps)
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <FadeIn>
           <div className="text-center mb-14">
-            <span className="inline-block text-white/70 text-sm font-semibold tracking-wider uppercase mb-3">
+            <span className="mb-3 inline-block font-serif text-4xl font-bold leading-tight text-white sm:text-5xl">
               Christ-Centered Curriculum
             </span>
-            <h2 className="text-3xl lg:text-4xl font-bold">
+            <h2 className="text-xl font-semibold leading-8 text-white/85 sm:text-2xl">
               What Makes Us <span className="text-red-300">Unique?</span>
             </h2>
           </div>

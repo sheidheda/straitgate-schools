@@ -34,6 +34,18 @@ interface NavbarProps {
 
 export default function Navbar({ schools, admissionLinks }: NavbarProps) {
   const pathname = usePathname();
+  const pathSegments = pathname.split('/').filter(Boolean);
+  const activeSchoolSlug = pathSegments[0] === 'schools' ? pathSegments[1] : undefined;
+  const activeSchool = schools.find((school) => school.initial === activeSchoolSlug);
+  const brandLabel = activeSchool ? activeSchool.name.toUpperCase() : 'STRAITGATE SCHOOLS';
+  const isStraitgateCollege = activeSchoolSlug === 'sc';
+  const logoSrc = isStraitgateCollege ? '/logosc.png' : '/logos.png';
+  const logoAlt = isStraitgateCollege ? 'Straitgate College logo' : 'Straitgate Schools logos';
+  const logoWidth = isStraitgateCollege ? 280 : 913;
+  const logoHeight = isStraitgateCollege ? 267 : 273;
+  const logoClassName = isStraitgateCollege
+    ? 'h-14 w-auto object-contain sm:h-20'
+    : 'h-11 w-auto object-contain sm:h-20';
   const [scrolled, setScrolled] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -87,6 +99,18 @@ export default function Navbar({ schools, admissionLinks }: NavbarProps) {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handleBrandClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    closeMenu();
+    if (isStraitgateCollege) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.setTimeout(() => window.location.reload(), 250);
+      return;
+    }
+
+    handleHomeClick(event);
   };
 
   const toggleSection = (section: MenuSection) => {
@@ -154,22 +178,25 @@ export default function Navbar({ schools, admissionLinks }: NavbarProps) {
       >
         <div className="flex h-20 w-full items-stretch justify-between pl-2 sm:h-24 sm:pl-4 lg:pl-5">
           <Link
-            href="/"
-            onClick={handleHomeClick}
+            href={isStraitgateCollege ? '/schools/sc/' : '/'}
+            onClick={handleBrandClick}
             className="flex items-center gap-3"
-            aria-label="Straitgate Schools home"
+            aria-label={isStraitgateCollege ? 'Refresh Straitgate College page' : 'Straitgate Schools home'}
           >
             <Image
-              src="/logos.png"
-              alt="Straitgate Schools logos"
-              width={913}
-              height={273}
-              className="h-11 w-auto object-contain sm:h-20"
+              src={logoSrc}
+              alt={logoAlt}
+              width={logoWidth}
+              height={logoHeight}
+              className={logoClassName}
               priority
               unoptimized
             />
-            <span className="hidden font-serif text-lg tracking-[0.1em] sm:block lg:text-3xl">
-              STRAITGATE SCHOOLS
+            <span
+              className="hidden text-lg tracking-[0.1em] sm:block lg:text-3xl"
+              style={{ fontFamily: '"Comic Sans MS", "Comic Sans", cursive' }}
+            >
+              {brandLabel}
             </span>
           </Link>
 
@@ -212,21 +239,24 @@ export default function Navbar({ schools, admissionLinks }: NavbarProps) {
             <div className="border-b border-white/10">
               <div className="flex h-20 w-full items-center justify-between px-2 sm:h-24 sm:px-4 lg:px-5">
                 <Link
-                  href="/"
-                  onClick={handleHomeClick}
+                  href={isStraitgateCollege ? '/schools/sc/' : '/'}
+                  onClick={handleBrandClick}
                   className="flex items-center gap-3"
-                  aria-label="Straitgate Schools home"
+                  aria-label={isStraitgateCollege ? 'Refresh Straitgate College page' : 'Straitgate Schools home'}
                 >
                   <Image
-                    src="/logos.png"
-                    alt="Straitgate Schools logos"
-                    width={913}
-                    height={273}
-                    className="h-11 w-auto object-contain sm:h-20"
+                    src={logoSrc}
+                    alt={logoAlt}
+                    width={logoWidth}
+                    height={logoHeight}
+                    className={logoClassName}
                     unoptimized
                   />
-                  <span className="hidden font-serif text-lg tracking-[0.1em] sm:block lg:text-3xl">
-                    STRAITGATE SCHOOLS
+                  <span
+                    className="hidden text-lg tracking-[0.1em] sm:block lg:text-3xl"
+                    style={{ fontFamily: '"Comic Sans MS", "Comic Sans", cursive' }}
+                  >
+                    {brandLabel}
                   </span>
                 </Link>
                 <button

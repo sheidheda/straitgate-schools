@@ -32,10 +32,10 @@ export default function WelcomeSection({ general }: WelcomeSectionProps) {
 
           <FadeIn direction="right" delay={0.2}>
             <div>
-              <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">
+              <span className="mb-3 inline-block font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl">
                 Welcome
               </span>
-              <h2 className="text-3xl lg:text-4xl font-bold text-dark mb-8">
+              <h2 className="mb-8 text-xl font-semibold leading-8 text-dark sm:text-2xl">
                 Welcome to{' '}
                 <span className="text-primary">Straitgate</span> Schools
               </h2>

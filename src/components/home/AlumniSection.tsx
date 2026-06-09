@@ -41,7 +41,7 @@ export default function AlumniSection({ schools }: AlumniSectionProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-14">
-            <h2 className="text-3xl lg:text-4xl font-bold text-dark">
+            <h2 className="font-serif text-4xl font-bold leading-tight text-dark sm:text-5xl">
               Our <span className="text-primary">Alumni</span>
             </h2>
           </div>

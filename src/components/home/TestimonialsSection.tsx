@@ -40,10 +40,10 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-14">
-            <span className="inline-block text-accent text-sm font-semibold tracking-wider uppercase mb-3">
+            <span className="mb-3 inline-block font-serif text-4xl font-bold leading-tight text-accent sm:text-5xl">
               What People Say
             </span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-dark">
+            <h2 className="text-xl font-semibold leading-8 text-dark sm:text-2xl">
               <span className="text-accent">Testimonials</span>
             </h2>
           </div>

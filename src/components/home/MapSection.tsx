@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { MapPinIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline';
 import FadeIn from '@/components/FadeIn';
 
@@ -30,27 +28,21 @@ const locations = [
 
 const getDirectionsUrl = (coords: [number, number]) =>
   `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}`;
-
-const ClientMap = dynamic(() => Promise.resolve(MapInner), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full min-h-[420px] items-center justify-center bg-gray-100 lg:min-h-0">
-      <p className="text-gray-400">Loading map...</p>
-    </div>
-  ),
-});
+const googleMapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
+  'Straitgate Schools Magodo Magboro Ogun State Lagos Nigeria'
+)}&output=embed`;
 
 export default function MapSection() {
   return (
     <section className="bg-[#f8f7f4] px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 max-w-3xl">
-          <h2 className="text-3xl font-bold text-dark lg:text-4xl">
+          <h2 className="font-serif text-4xl font-bold leading-tight text-dark sm:text-5xl">
             Visit Our <span className="text-primary">Campuses</span>
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-gray-600">
             Our schools are spread across Lagos and Ogun State, each offering a warm,
-            welcoming environment for learning. Select a location card or marker for directions.
+            welcoming environment for learning. Use the map or location cards for directions.
           </p>
         </div>
 
@@ -86,89 +78,18 @@ export default function MapSection() {
 
           <FadeIn direction="right" className="h-[420px] lg:h-full">
             <div className="h-full overflow-hidden rounded-2xl border border-black/10 bg-white p-2 shadow-2xl">
-              <ClientMap />
+              <iframe
+                title="Google map showing Straitgate Schools campuses"
+                src={googleMapSrc}
+                className="h-full min-h-[420px] w-full rounded-xl border-0 lg:min-h-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
           </FadeIn>
         </div>
       </div>
     </section>
-  );
-}
-
-function MapInner() {
-  const [leaflet, setLeaflet] = useState<{
-    MapContainer: typeof import('react-leaflet').MapContainer;
-    TileLayer: typeof import('react-leaflet').TileLayer;
-    Marker: typeof import('react-leaflet').Marker;
-    Popup: typeof import('react-leaflet').Popup;
-  } | null>(null);
-
-  useEffect(() => {
-    import('react-leaflet').then((mod) => {
-      setLeaflet({
-        MapContainer: mod.MapContainer,
-        TileLayer: mod.TileLayer,
-        Marker: mod.Marker,
-        Popup: mod.Popup,
-      });
-    });
-
-    import('leaflet').then((L) => {
-      delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-      });
-    });
-  }, []);
-
-  if (!leaflet) return <div className="h-full min-h-[420px] bg-gray-100 lg:min-h-0" />;
-
-  const { MapContainer, TileLayer, Marker, Popup } = leaflet;
-
-  return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-      />
-      <MapContainer
-        center={[6.66, 3.39]}
-        zoom={11}
-        scrollWheelZoom={false}
-        style={{ height: '100%', width: '100%' }}
-        className="z-0 h-full rounded-xl"
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {locations.map((loc, i) => (
-          <Marker
-            key={i}
-            position={loc.coords}
-            eventHandlers={{
-              click: () => window.open(getDirectionsUrl(loc.coords), '_blank', 'noopener,noreferrer'),
-            }}
-          >
-            <Popup>
-              <a
-                href={getDirectionsUrl(loc.coords)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block min-w-48 text-gray-700"
-              >
-                <strong className="text-dark">{loc.title}</strong>
-                <br />
-                {loc.address}
-                <br />
-                <span className="text-primary">Open directions</span>
-              </a>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </>
   );
 }

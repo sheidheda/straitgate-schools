@@ -82,7 +82,7 @@ export default function HomePage({ data }: { data: HomePageData }) {
       <HeroSection general={data.general} />
       <div className="relative">
         <div className="sticky top-0 z-[80] border-b border-black/10 bg-white/95 px-4 py-5 text-center shadow-sm backdrop-blur sm:px-6">
-          <h2 className="text-2xl font-semibold uppercase tracking-[0.18em] text-dark sm:text-3xl">
+          <h2 className="font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl">
             Extracurricular Activities
           </h2>
         </div>
@@ -102,7 +102,7 @@ export default function HomePage({ data }: { data: HomePageData }) {
                   loading="lazy"
                 />
                 <div>
-                  <h3 className="mb-5 text-4xl font-semibold text-dark md:text-5xl">
+                  <h3 className="mb-5 font-serif text-4xl font-bold leading-tight text-primary md:text-5xl">
                     {activity.title}
                   </h3>
                   <p className="text-lg leading-relaxed text-gray-600">

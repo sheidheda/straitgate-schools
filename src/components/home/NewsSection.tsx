@@ -22,10 +22,10 @@ export default function NewsSection({ featuredPost, posts, schools }: NewsSectio
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-14">
-            <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-3">
+            <span className="mb-3 inline-block font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl">
               Stay Updated
             </span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-dark">
+            <h2 className="text-xl font-semibold leading-8 text-dark sm:text-2xl">
               Latest News & <span className="text-primary">Events</span>
             </h2>
           </div>
