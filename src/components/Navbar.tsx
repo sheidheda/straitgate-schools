@@ -11,6 +11,7 @@ import {
   ChevronDownIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { AdmissionLink, School } from '@/lib/content';
 
 type MenuSection = 'About Us' | 'Schools' | 'Admissions';
@@ -43,9 +44,9 @@ function BrandText({ label, highlightIDot = false }: { label: string; highlightI
       {label.slice(0, iIndex)}
       <span className="relative inline-block leading-none">
         i
-        <span
+        <StarIcon
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[0.08em] h-[0.18em] w-[0.18em] -translate-x-1/2 rounded-full bg-primary"
+          className="pointer-events-none absolute left-1/2 top-[-0.1em] h-[0.55em] w-[0.55em] -translate-x-1/2 -rotate-[15deg] text-[#DC2626]"
         />
       </span>
       {label.slice(iIndex + 1)}
@@ -248,7 +249,7 @@ export default function Navbar({ schools, admissionLinks }: NavbarProps) {
               className="hidden text-lg tracking-[0.1em] sm:block lg:text-3xl"
               style={{ fontFamily: '"Comic Sans MS", "Comic Sans", cursive' }}
             >
-              <BrandText label={brandLabel} highlightIDot={!activeSchoolSlug} />
+              <BrandText label={brandLabel} highlightIDot />
             </span>
           </Link>
 
@@ -320,7 +321,7 @@ export default function Navbar({ schools, admissionLinks }: NavbarProps) {
                     className="hidden text-lg tracking-[0.1em] sm:block lg:text-3xl"
                     style={{ fontFamily: '"Comic Sans MS", "Comic Sans", cursive' }}
                   >
-                    <BrandText label={brandLabel} highlightIDot={!activeSchoolSlug} />
+                    <BrandText label={brandLabel} highlightIDot />
                   </span>
                 </Link>
                 <button

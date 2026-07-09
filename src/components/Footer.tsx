@@ -1,5 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { General, School } from '@/lib/content';
 import CopyPhoneButton from './CopyPhoneButton';
 
@@ -13,6 +17,8 @@ const socialLinkClass = 'text-white/45 transition-colors hover:text-primary';
 const footerLinkClass = 'text-sm leading-6 text-white/55 transition-colors hover:text-white';
 
 export default function Footer({ general, schools }: FooterProps) {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const phone = general.phone;
   const whatsapp = general.whatsapp_phone;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(general.address)}`;
@@ -68,7 +74,21 @@ export default function Footer({ general, schools }: FooterProps) {
               className="text-xl font-extrabold tracking-[0.16em]"
               style={{ fontFamily: '"Comic Sans MS", "Comic Sans", cursive' }}
             >
-              STRAITGATE SCHOOLS
+              {isHome ? (
+                <>
+                  STRA
+                  <span className="relative inline-block leading-none">
+                    I
+                    <StarIcon
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-1/2 top-[-0.1em] h-[0.55em] w-[0.55em] -translate-x-1/2 -rotate-[15deg] text-[#DC2626]"
+                    />
+                  </span>
+                  TGATE SCHOOLS
+                </>
+              ) : (
+                'STRAITGATE SCHOOLS'
+              )}
             </span>
           </Link>
           <p className="mt-5 max-w-xl text-sm leading-6 text-white/50">{general.footer_message}</p>
