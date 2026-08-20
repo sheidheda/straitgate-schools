@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const headMessages = [
   {
@@ -24,9 +25,9 @@ type HeadMessageProps = {
 
 function HeadMessage({ message, className = '' }: HeadMessageProps) {
   return (
-    <div className={`messageBody ${className}`}>
-      <h2>Message from Head of School</h2>
-      <blockquote>&ldquo;{message.quote}&rdquo;</blockquote>
+    <div className={`sec-message-body ${className}`}>
+      <span className="sec-quote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>{message.quote}</blockquote>
       <p>{message.body}</p>
       <cite>
         <strong>{message.name}</strong>
@@ -67,18 +68,25 @@ export default function SecondaryHeadMessages() {
   }, []);
 
   return (
-    <div className="shell testimonialInner">
-      <div className="messageControls">
-        <button type="button" onClick={() => changeMessage(-1)} aria-label="Show previous head of school message">
-          <span aria-hidden="true">&larr;</span>
-        </button>
-        <button type="button" onClick={() => changeMessage(1)} aria-label="Show next head of school message">
-          <span aria-hidden="true">&rarr;</span>
-        </button>
+    <div className="sec-container sec-message-inner">
+      <div className="sec-message-head">
+        <p className="sec-kicker sec-kicker-light">From the Head&apos;s desk</p>
+        <h2>Message from the Head of School</h2>
       </div>
-      <div className="messageStage">
-        {exitingMessage ? <HeadMessage message={exitingMessage} className="isExiting" /> : null}
-        <HeadMessage key={currentMessage.school} message={currentMessage} className="isEntering" />
+      <div className="sec-message-stage">
+        {exitingMessage ? <HeadMessage message={exitingMessage} className="is-exiting" /> : null}
+        <HeadMessage key={currentMessage.school} message={currentMessage} className="is-entering" />
+      </div>
+      <div className="sec-message-controls">
+        <button type="button" onClick={() => changeMessage(-1)} aria-label="Show previous head of school message">
+          <ChevronLeftIcon aria-hidden="true" />
+        </button>
+        <span>
+          {String(activeMessage + 1).padStart(2, '0')} / {String(headMessages.length).padStart(2, '0')}
+        </span>
+        <button type="button" onClick={() => changeMessage(1)} aria-label="Show next head of school message">
+          <ChevronRightIcon aria-hidden="true" />
+        </button>
       </div>
     </div>
   );

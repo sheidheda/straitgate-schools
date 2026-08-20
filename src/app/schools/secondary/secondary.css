@@ -1,14 +1,17 @@
 .secondary-school {
-  --blue: #1e3a6d;
-  --red: #dc3c3a;
-  --ink: #242424;
-  --hero: #1e2630;
-  --muted: #6b6b6b;
-  --line: #e6e6e6;
+  --sec-navy: #172554;
+  --sec-blue: #234b8f;
+  --sec-red: #ac0c30;
+  --sec-red-dark: #850922;
+  --sec-gold: #e7b83c;
+  --sec-ink: #11182d;
+  --sec-muted: #626b7e;
+  --sec-soft: #f4f7fb;
+  --sec-line: #dfe5ed;
   overflow: hidden;
   background: #fff;
-  color: var(--muted);
-  font: 14px/1.85 var(--font-secondary-poppins), Arial, sans-serif;
+  color: var(--sec-ink);
+  font-family: var(--font-secondary-poppins), Arial, sans-serif;
 }
 
 .secondary-school *,
@@ -17,758 +20,1058 @@
   box-sizing: border-box;
 }
 
+.secondary-school img {
+  object-fit: cover;
+}
+
 .secondary-school a {
   color: inherit;
   text-decoration: none;
 }
 
-.secondary-school img {
-  display: block;
-  max-width: 100%;
-  width: 100%;
-}
-
-.secondary-school .shell {
-  width: min(1170px, calc(100% - 40px));
-  margin: 0 auto;
-}
-
-.secondary-school section[id],
-.secondary-school footer[id] {
-  scroll-margin-top: 96px;
+.secondary-school a,
+.secondary-school button {
+  font: inherit;
 }
 
 .secondary-school a:focus-visible,
 .secondary-school button:focus-visible {
-  outline: 3px solid var(--red);
+  outline: 3px solid var(--sec-gold);
   outline-offset: 3px;
 }
 
-.secondary-school .hero {
-  position: relative;
-  height: 697px;
-  overflow: hidden;
-  background: var(--hero);
-  color: #fff;
+.sec-container {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
 }
 
-.secondary-school .hero > img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+.sec-section {
+  padding-block: 112px;
 }
 
-.secondary-school .heroShade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #1e2630 0%, rgb(30 38 48 / 98%) 36%, rgb(30 38 48 / 52%) 58%, rgb(30 38 48 / 2%) 100%);
+.secondary-school section[id],
+.secondary-school div[id] {
+  scroll-margin-top: 104px;
 }
 
-.secondary-school .heroInner {
-  position: relative;
-  z-index: 1;
-  width: min(1170px, calc(100% - 40px));
-  margin: 0 auto;
-  padding-top: 132px;
+/* --- Reveal --- */
+.sec-reveal {
+  opacity: 0;
+  transform: translateY(38px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.secondary-school .hero h2 {
-  margin: 0 0 9px;
-  color: var(--red);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1;
+.sec-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Shared type --- */
+.sec-kicker,
+.sec-eyebrow {
+  margin: 0 0 18px;
+  color: var(--sec-red);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.secondary-school .hero h1 {
-  max-width: 810px;
-  margin: 0;
-  font-size: clamp(62px, 7.6vw, 130px);
-  font-weight: 800;
-  letter-spacing: 0;
-  line-height: 0.94;
+.sec-kicker-light {
+  color: var(--sec-gold);
 }
 
-.secondary-school .hero h1 span {
-  display: block;
-  color: var(--blue);
-  font-weight: 400;
-}
-
-.secondary-school .hero p {
-  max-width: 610px;
-  margin: 27px 0 0;
-  color: #fff;
-  font-size: 16px;
-  line-height: 1.65;
-}
-
-.secondary-school .hero a {
-  display: inline-flex;
-  min-width: 175px;
-  height: 63px;
+.sec-eyebrow {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 42px;
-  background: var(--red);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  gap: 10px;
 }
 
-.secondary-school .hero a:hover {
-  background: var(--blue);
-  transform: translateY(-2px);
+.sec-eyebrow span {
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: var(--sec-red);
 }
 
-.secondary-school .hero a:focus-visible {
-  outline-color: #fff;
-}
-
-.secondary-school .programCards {
-  position: relative;
-  z-index: 2;
-  margin-top: -37px;
-  padding-bottom: 88px;
-}
-
-.secondary-school .threeCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.secondary-school .threeCards article {
-  min-height: 415px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 0 22px rgb(0 0 0 / 10%);
-}
-
-.secondary-school .threeCards img {
-  height: 198px;
-  object-fit: cover;
-}
-
-.secondary-school .threeCards div {
-  padding: 24px 29px 28px;
-}
-
-.secondary-school .threeCards h3,
-.secondary-school .serviceGrid h3,
-.secondary-school .classGrid h3,
-.secondary-school .teacherGrid h3 {
-  margin: 0;
-  color: var(--ink);
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.secondary-school .threeCards article:nth-child(1) h3,
-.secondary-school .threeCards article:nth-child(1) a,
-.secondary-school .threeCards article:nth-child(3) h3,
-.secondary-school .threeCards article:nth-child(3) a {
-  color: var(--blue);
-}
-
-.secondary-school .threeCards article:nth-child(2) h3,
-.secondary-school .threeCards article:nth-child(2) a {
-  color: var(--red);
-}
-
-.secondary-school .threeCards p {
-  margin: 11px 0 6px;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.secondary-school .threeCards a,
-.secondary-school .serviceGrid a,
-.secondary-school .classGrid a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 5px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.secondary-school .threeCards a::after,
-.secondary-school .serviceGrid a::after,
-.secondary-school .classGrid a::after {
-  content: '→';
-  font-size: 17px;
-  line-height: 1;
-}
-
-.secondary-school .about {
-  padding: 7px 0 88px;
-}
-
-.secondary-school .aboutInner {
-  display: grid;
-  grid-template-columns: 36% 1fr;
-  align-items: start;
-  gap: 88px;
-}
-
-.secondary-school .aboutTitle h2,
-.secondary-school .sectionTitle h2,
-.secondary-school .testimonial h2 {
-  margin: 0;
-  color: #2c2c2c;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.4;
-}
-
-.secondary-school .aboutStats {
-  display: grid;
-  gap: 0;
-  margin-top: 32px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.secondary-school .aboutStats div {
-  position: relative;
-  padding: 19px 0 19px 24px;
-  border-bottom: 1px solid var(--line);
-}
-
-.secondary-school .aboutStats div:last-child {
-  border-bottom: 0;
-}
-
-.secondary-school .aboutStats div::before {
-  position: absolute;
-  top: 24px;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--red);
-  box-shadow: 0 0 0 5px rgb(220 60 58 / 12%);
-  content: '';
-}
-
-.secondary-school .aboutStats strong {
-  display: block;
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.25;
-}
-
-.secondary-school .aboutStats span {
-  display: block;
-  margin-top: 5px;
-  color: #6b6b6b;
-  font-size: 12px;
-  line-height: 1.65;
-}
-
-.secondary-school .aboutText {
-  padding-top: 2px;
-}
-
-.secondary-school .aboutText .large {
-  margin: 0 0 21px;
-  color: #4a4a4a;
-  font-size: 16px;
-  line-height: 1.85;
-}
-
-.secondary-school .aboutText p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-.secondary-school .services {
-  padding: 0;
-  background: #fff;
-}
-
-.secondary-school .serviceGrid {
-  display: grid;
-  width: min(1265px, 100%);
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-
-.secondary-school .serviceGrid article {
-  min-height: 326px;
-  padding: 55px max(32px, calc((100vw - 1170px) / 6));
-  background: var(--blue);
-  color: #fff;
-}
-
-.secondary-school .serviceGrid article:nth-child(2) {
-  background: var(--red);
-}
-
-.secondary-school .serviceGrid img {
-  width: 76px;
-  height: 76px;
-  margin-bottom: 30px;
-  object-fit: contain;
-}
-
-.secondary-school .serviceGrid article:nth-child(3) img {
-  width: 82px;
-  height: 82px;
-  margin-bottom: 24px;
-}
-
-.secondary-school .serviceGrid h3 {
-  color: #fff;
-  font-size: 21px;
-}
-
-.secondary-school .serviceGrid p {
-  margin: 10px 0 4px;
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.secondary-school .serviceGrid a {
-  color: #fff;
-}
-
-.secondary-school .sectionTitle {
-  margin-bottom: 26px;
-}
-
-.secondary-school .sectionTitle.center {
+.sec-section-heading {
+  max-width: 720px;
+  margin: 0 auto 54px;
   text-align: center;
 }
 
-.secondary-school .sectionTitle img {
-  width: 72px;
-  height: 72px;
-  margin: 0 0 17px;
-  border-radius: 50%;
-  padding: 13px;
-  background: #eef3fa;
-  object-fit: contain;
+.sec-section-heading h2,
+.sec-about-copy h2,
+.sec-admissions-copy h2,
+.sec-gallery-heading h2,
+.sec-message-head h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.3rem, 4.4vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+  color: var(--sec-ink);
 }
 
-.secondary-school .sectionTitle.center img {
-  margin-right: auto;
-  margin-left: auto;
+.sec-section-heading > p:last-child {
+  max-width: 650px;
+  margin: 20px auto 0;
+  color: var(--sec-muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
 }
 
-.secondary-school .classes {
-  padding: 86px 0 93px;
+/* --- Buttons & links --- */
+.sec-button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 14px 24px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.sec-button:hover {
+  transform: translateY(-2px);
+}
+
+.sec-button svg,
+.sec-text-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sec-button-primary {
+  background: var(--sec-red);
+  color: #fff;
+  box-shadow: 0 12px 26px rgb(172 12 48 / 24%);
+}
+
+.sec-button-primary:hover {
+  background: var(--sec-red-dark);
+}
+
+.sec-button-ghost {
+  border-color: rgb(255 255 255 / 45%);
+  background: transparent;
+  color: #fff;
+}
+
+.sec-button-ghost:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 12%);
+}
+
+.sec-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  color: var(--sec-red);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.sec-text-link svg {
+  transition: transform 180ms ease;
+}
+
+.sec-text-link:hover svg {
+  transform: translateX(4px);
+}
+
+.sec-text-link-light {
+  color: #fff;
+  margin-top: 0;
+}
+
+/* --- Hero --- */
+.sec-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 720px;
+  padding: 176px 0 96px;
+  color: #fff;
+  background: var(--sec-navy);
+}
+
+.sec-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.sec-hero-media img {
+  object-position: center;
+}
+
+.sec-hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(103deg, rgb(15 22 41 / 92%) 0%, rgb(15 22 41 / 74%) 42%, rgb(15 22 41 / 30%) 74%, rgb(15 22 41 / 12%) 100%),
+    linear-gradient(0deg, rgb(15 22 41 / 55%), transparent 40%);
+}
+
+.sec-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.sec-hero .sec-eyebrow {
+  color: #fff;
+}
+
+.sec-hero .sec-eyebrow span {
+  background: var(--sec-gold);
+}
+
+.sec-hero h1 {
+  max-width: 780px;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(3rem, 5.6vw, 5.6rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.sec-hero h1 em {
+  display: block;
+  margin-top: 6px;
+  color: var(--sec-gold);
+  font-style: italic;
+}
+
+.sec-hero-lead {
+  max-width: 610px;
+  margin: 28px 0 0;
+  color: rgb(255 255 255 / 88%);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.sec-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 36px;
+}
+
+.sec-hero-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.sec-hero-note svg {
+  width: 22px;
+  height: 22px;
+  color: var(--sec-gold);
+}
+
+/* --- Strengths strip --- */
+.sec-strengths {
+  position: relative;
+  z-index: 2;
+  margin-top: -58px;
+}
+
+.sec-strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border-radius: 12px;
   background: #fff;
+  box-shadow: 0 24px 60px rgb(17 24 45 / 12%);
 }
 
-.secondary-school .classes .sectionTitle,
-.secondary-school .teachers .sectionTitle {
-  margin-bottom: 47px;
+.sec-strengths-grid article {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 30px 28px;
+  border-right: 1px solid var(--sec-line);
 }
 
-.secondary-school .classes .sectionTitle h2,
-.secondary-school .teachers .sectionTitle h2 {
-  color: #2c2c2c;
+.sec-strengths-grid article:last-child {
+  border-right: 0;
 }
 
-.secondary-school .classGrid {
+.sec-strength-icon {
+  display: grid;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sec-soft);
+  color: var(--sec-blue);
+}
+
+.sec-strength-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.sec-strengths-grid h2 {
+  margin: 0;
+  color: var(--sec-ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.sec-strengths-grid p {
+  margin: 3px 0 0;
+  color: var(--sec-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* --- About --- */
+.sec-about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 64px;
+}
+
+.sec-collage {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.sec-collage-main {
+  position: relative;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.sec-collage-small {
+  position: absolute;
+  right: -6px;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 6px solid #fff;
+  border-radius: 12px;
+}
+
+.sec-collage-badge {
+  position: absolute;
+  top: 22px;
+  left: -8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  background: var(--sec-navy);
+  color: #fff;
+  box-shadow: 0 16px 34px rgb(17 24 45 / 26%);
+}
+
+.sec-collage-badge svg {
+  width: 26px;
+  height: 26px;
+  color: var(--sec-gold);
+}
+
+.sec-collage-badge span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.sec-about-copy .sec-lead {
+  margin: 22px 0 16px;
+  color: #454f61;
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+.sec-about-copy > p:not(.sec-lead):not(.sec-kicker) {
+  margin: 0;
+  color: var(--sec-muted);
+  font-size: 0.98rem;
+  line-height: 1.9;
+}
+
+/* --- Journey --- */
+.sec-journey {
+  background: var(--sec-soft);
+}
+
+.sec-journey-grid,
+.sec-academics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
 }
 
-.secondary-school .classGrid article {
+.sec-journey-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 12px;
   background: #fff;
-  box-shadow: 0 0 22px rgb(0 0 0 / 10%);
+  box-shadow: 0 14px 34px rgb(17 24 45 / 8%);
 }
 
-.secondary-school .classGrid img {
-  height: 220px;
-  object-fit: cover;
+.sec-journey-image,
+.sec-academics-image {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
 }
 
-.secondary-school .classGrid div {
-  padding: 24px 29px 29px;
+.sec-journey-index {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 4px 18px rgb(17 24 45 / 55%);
 }
 
-.secondary-school .classGrid p {
-  margin: 8px 0 0;
-  color: #6b6b6b;
-  font-size: 12px;
-  line-height: 1.55;
+.sec-journey-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 26px 28px 30px;
 }
 
-.secondary-school .classGrid a {
-  margin-top: 13px;
-  color: var(--red);
+.sec-journey-numeral {
+  margin: 0 0 6px;
+  color: var(--sec-red);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.secondary-school .teachers {
-  padding: 84px 0 91px;
-  background: #f3f3f3;
+.sec-journey-copy h3,
+.sec-academics-copy h3 {
+  margin: 0 0 12px;
+  color: var(--sec-ink);
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-.secondary-school .teacherGrid {
+.sec-journey-copy > p {
+  margin: 0;
+  color: var(--sec-muted);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.sec-journey-copy a,
+.sec-academics-copy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 18px;
+  color: var(--sec-red);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sec-journey-copy a svg,
+.sec-academics-copy a svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 180ms ease;
+}
+
+.sec-journey-copy a:hover svg,
+.sec-academics-copy a:hover svg {
+  transform: translateX(4px);
+}
+
+/* --- Academics --- */
+.sec-academics-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--sec-line);
+}
+
+.sec-academics-image span {
+  position: absolute;
+  bottom: -22px;
+  left: 24px;
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--sec-red);
+  color: #fff;
+  box-shadow: 0 12px 24px rgb(172 12 48 / 34%);
+}
+
+.sec-academics-image span svg {
+  width: 26px;
+  height: 26px;
+}
+
+.sec-academics-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 34px 28px 28px;
+}
+
+.sec-academics-meta {
+  margin: 0 0 4px;
+  color: var(--sec-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+/* --- Pastoral --- */
+.sec-pastoral {
+  background: var(--sec-navy);
+  color: #fff;
+}
+
+.sec-pastoral .sec-section-heading h2 {
+  color: #fff;
+}
+
+.sec-pastoral-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.sec-pastoral-grid article {
+  padding: 34px 30px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 6%);
+  border: 1px solid rgb(255 255 255 / 12%);
+}
+
+.sec-pastoral-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: rgb(231 184 60 / 16%);
+  color: var(--sec-gold);
+}
+
+.sec-pastoral-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.sec-pastoral-grid h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.sec-pastoral-grid p {
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+.sec-pastoral-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 34px;
+  padding: 26px 32px;
+  border-radius: 12px;
+  background: rgb(35 75 143 / 45%);
+  border: 1px solid rgb(255 255 255 / 12%);
+}
+
+.sec-pastoral-cta svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--sec-gold);
+}
+
+.sec-pastoral-cta p {
+  flex: 1;
+  min-width: 240px;
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* --- School Heads --- */
+.sec-heads-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 370px));
   align-items: start;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
 }
 
-.secondary-school .teacherGrid article {
+.sec-heads-grid article {
   text-align: center;
 }
 
-.secondary-school .teacherGrid img {
-  width: 100%;
-  height: auto;
-  background: transparent;
-  object-fit: contain;
-  object-position: center top;
+.sec-head-image {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--sec-soft);
+  box-shadow: 0 16px 40px rgb(17 24 45 / 12%);
 }
 
-.secondary-school .teacherGrid article:first-child img {
-  aspect-ratio: 992 / 1077;
+.sec-head-image img {
+  width: 100%;
   height: auto;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: center top;
 }
 
-.secondary-school .teacherGrid h3 {
-  margin-top: 17px;
-  font-size: 18px;
-}
-
-.secondary-school .teacherGrid p {
-  margin: 5px 0 0;
-  color: var(--red);
-  font-size: 12px;
-}
-
-.secondary-school .testimonial {
-  padding: 77px 0;
-  background: var(--blue);
-  color: #fff;
-}
-
-.secondary-school .testimonialInner {
-  display: grid;
-  grid-template-columns: 220px 1fr 120px;
-  align-items: center;
-  gap: 45px;
-}
-
-.secondary-school .messageControls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.secondary-school .messageControls button {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
-  place-items: center;
-  border: 1px solid rgb(255 255 255 / 45%);
-  background: transparent;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 800;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-
-.secondary-school .messageControls button:hover {
-  border-color: var(--red);
-  background: var(--red);
-}
-
-.secondary-school .messageControls button:focus-visible {
-  outline-color: rgb(255 255 255 / 45%);
-}
-
-.secondary-school .messageStage {
-  position: relative;
-  min-height: 282px;
-  overflow: hidden;
-}
-
-.secondary-school .messageBody {
-  width: 100%;
-}
-
-.secondary-school .messageBody.isEntering {
-  animation: secondary-message-in 0.68s ease both;
-}
-
-.secondary-school .messageBody.isExiting {
-  position: absolute;
-  inset: 0;
-  animation: secondary-message-out 0.68s ease both;
-}
-
-.secondary-school .messageBody h2 {
-  margin: 0;
-  color: #fff;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-.secondary-school .messageBody blockquote {
-  margin: 0 0 14px;
-  color: #fff;
-  font-size: 16px;
-  font-style: italic;
-  line-height: 1.75;
-}
-
-.secondary-school .messageBody p {
-  margin: 0;
-  color: #fff;
-  font-size: 14px;
-  line-height: 1.85;
-}
-
-.secondary-school .messageBody cite {
-  display: block;
-  margin-top: 18px;
-  font-style: normal;
-}
-
-.secondary-school .messageBody cite strong {
-  display: block;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1.35;
-}
-
-.secondary-school .messageBody cite span {
-  display: block;
-  margin-top: 2px;
-  color: #fff;
-  font-size: 11px;
+.sec-heads-grid h3 {
+  margin: 20px 0 0;
+  color: var(--sec-ink);
+  font-size: 1.25rem;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  line-height: 1.4;
-  opacity: 0.9;
+}
+
+.sec-heads-grid p {
+  margin: 6px 0 0;
+  color: var(--sec-red);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.secondary-school .messageBody.isExiting + .messageBody.isEntering {
-  position: absolute;
-  inset: 0;
+/* --- Head message --- */
+.sec-message {
+  background: var(--sec-red);
+  color: #fff;
 }
 
-@keyframes secondary-message-in {
+.sec-message-inner {
+  padding-block: 88px;
+}
+
+.sec-message-head {
+  max-width: 640px;
+  margin-bottom: 30px;
+}
+
+.sec-message-head .sec-kicker-light {
+  color: rgb(255 255 255 / 78%);
+}
+
+.sec-message-head h2 {
+  color: #fff;
+}
+
+.sec-message-stage {
+  position: relative;
+  min-height: 250px;
+}
+
+.sec-message-body {
+  width: 100%;
+}
+
+.sec-message-body.is-entering {
+  animation: sec-message-in 0.68s ease both;
+}
+
+.sec-message-body.is-exiting {
+  position: absolute;
+  inset: 0;
+  animation: sec-message-out 0.68s ease both;
+}
+
+.sec-quote-mark {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 0.6;
+  color: rgb(255 255 255 / 55%);
+}
+
+.sec-message-body blockquote {
+  max-width: 900px;
+  margin: 14px 0 18px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.sec-message-body > p {
+  max-width: 880px;
+  margin: 0;
+  color: rgb(255 255 255 / 88%);
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+.sec-message-body cite {
+  display: block;
+  margin-top: 20px;
+  font-style: normal;
+}
+
+.sec-message-body cite strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.sec-message-body cite span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.sec-message-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.sec-message-controls button {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 50%);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.sec-message-controls button:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 16%);
+}
+
+.sec-message-controls button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sec-message-controls span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@keyframes sec-message-in {
   from { opacity: 0; transform: translateX(-34px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes secondary-message-out {
+@keyframes sec-message-out {
   from { opacity: 1; transform: translateX(0); }
   to { opacity: 0; transform: translateX(38px); }
 }
 
-.secondary-school .imageStrip {
+/* --- Gallery --- */
+.sec-gallery-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.sec-gallery-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.sec-gallery-controls button {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid var(--sec-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--sec-navy);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-.secondary-school .imageStrip img {
-  height: 172px;
-  object-fit: cover;
-}
-
-.secondary-school .footer {
-  padding: 78px 0 0;
-  background: #242424;
-  color: #ababab;
-}
-
-.secondary-school .footerGrid {
-  display: grid;
-  grid-template-columns: 1.45fr 1fr 1fr 1fr;
-  gap: 55px;
-  padding-bottom: 68px;
-}
-
-.secondary-school .footerBrand {
-  margin-bottom: 23px;
+.sec-gallery-controls button:hover {
+  border-color: var(--sec-navy);
+  background: var(--sec-navy);
   color: #fff;
-  font-size: 27px;
-  font-weight: 800;
 }
 
-.secondary-school .footer p,
-.secondary-school .footer a {
-  display: block;
-  margin: 0 0 8px;
-  color: #ababab;
-  font-size: 12px;
+.sec-gallery-controls button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sec-gallery-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 32%);
+  gap: 22px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.sec-gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.sec-gallery-track figure {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  scroll-snap-align: start;
+}
+
+.sec-gallery-track figure.sec-gallery-tall {
+  aspect-ratio: 3 / 4;
+}
+
+/* --- Admissions --- */
+.sec-admissions {
+  padding-block: 104px;
+  background:
+    radial-gradient(circle at 88% 12%, rgb(35 75 143 / 30%), transparent 30%),
+    linear-gradient(120deg, #101a33 0%, var(--sec-navy) 60%, #1d3564 100%);
+  color: #fff;
+}
+
+.sec-admissions-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 56px;
+}
+
+.sec-admissions-copy h2 {
+  color: #fff;
+}
+
+.sec-admissions-copy p {
+  margin: 20px 0 0;
+  color: rgb(255 255 255 / 78%);
+  font-size: 1.02rem;
   line-height: 1.8;
 }
 
-.secondary-school .footer h3 {
-  margin: 0 0 22px;
-  color: #fff;
-  font-size: 15px;
+.sec-admissions-links {
+  display: grid;
+  gap: 14px;
+}
+
+.sec-admissions-links a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.sec-admissions-links a:hover {
+  transform: translateY(-2px);
+  background: rgb(255 255 255 / 14%);
+  border-color: rgb(231 184 60 / 55%);
+}
+
+.sec-admissions-links a > svg:first-child {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--sec-gold);
+}
+
+.sec-admissions-links span {
+  flex: 1;
+}
+
+.sec-admissions-links strong {
+  display: block;
+  font-size: 1.02rem;
   font-weight: 700;
 }
 
-.secondary-school .iconCredits {
-  grid-column: 1 / -1;
-  padding-top: 23px;
-  border-top: 1px solid rgb(255 255 255 / 12%);
-}
-
-.secondary-school .iconCredits h3 {
-  margin-bottom: 10px;
-}
-
-.secondary-school .iconCredits a {
-  display: inline;
-  margin-right: 16px;
-  font-size: 10px;
-  line-height: 1.9;
-}
-
-.secondary-school .footer::after {
+.sec-admissions-links small {
   display: block;
-  padding: 18px calc((100% - min(1170px, calc(100% - 40px))) / 2);
-  background: #1b1b1b;
-  color: #898989;
-  content: 'Copyright © Straitgate Schools. All rights reserved.';
-  font-size: 11px;
+  margin-top: 3px;
+  color: rgb(255 255 255 / 66%);
+  font-size: 0.8rem;
+}
+
+.sec-admissions-links a > svg:last-child {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: rgb(255 255 255 / 70%);
+  transition: transform 180ms ease;
+}
+
+.sec-admissions-links a:hover > svg:last-child {
+  transform: translate(3px, -3px);
+}
+
+.sec-admissions-links a.sec-admissions-contact:hover > svg:last-child {
+  transform: translateX(4px);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .sec-strengths-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sec-strengths-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .sec-strengths-grid article:nth-child(1),
+  .sec-strengths-grid article:nth-child(2) {
+    border-bottom: 1px solid var(--sec-line);
+  }
 }
 
 @media (max-width: 900px) {
-  .secondary-school .hero {
-    height: 600px;
+  .sec-section {
+    padding-block: 80px;
   }
 
-  .secondary-school .heroInner {
-    padding-top: 130px;
+  .sec-hero {
+    min-height: 620px;
+    padding: 150px 0 80px;
   }
 
-  .secondary-school .threeCards,
-  .secondary-school .aboutInner,
-  .secondary-school .serviceGrid,
-  .secondary-school .classGrid,
-  .secondary-school .teacherGrid,
-  .secondary-school .testimonialInner,
-  .secondary-school .footerGrid {
+  .sec-about-grid,
+  .sec-admissions-inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .sec-journey-grid,
+  .sec-academics-grid,
+  .sec-pastoral-grid {
     grid-template-columns: 1fr;
   }
 
-  .secondary-school .programCards {
-    margin-top: 0;
-    padding-top: 24px;
-  }
-
-  .secondary-school .serviceGrid {
-    width: 100%;
-  }
-
-  .secondary-school .serviceGrid article {
-    min-height: 260px;
-    padding: 45px 40px;
-  }
-
-  .secondary-school .teacherGrid {
-    max-width: 430px;
+  .sec-heads-grid {
+    max-width: 440px;
     margin: 0 auto;
-  }
-
-  .secondary-school .testimonialInner {
-    gap: 28px;
-  }
-
-  .secondary-school .messageControls {
-    justify-content: flex-start;
-  }
-
-  .secondary-school .imageStrip {
-    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
 }
 
 @media (max-width: 560px) {
-  .secondary-school .shell {
-    width: min(100% - 30px, 1170px);
+  .sec-container {
+    width: min(100% - 34px, 1180px);
   }
 
-  .secondary-school .hero {
-    height: 540px;
+  .sec-section {
+    padding-block: 62px;
   }
 
-  .secondary-school .heroInner {
-    padding-top: 116px;
+  .sec-hero {
+    min-height: 560px;
+    padding: 132px 0 64px;
   }
 
-  .secondary-school .hero h1 {
-    font-size: 52px;
+  .sec-hero h1 {
+    font-size: clamp(2.5rem, 11vw, 3.2rem);
   }
 
-  .secondary-school .hero p {
-    font-size: 13px;
+  .sec-strengths {
+    margin-top: -40px;
   }
 
-  .secondary-school .hero a {
-    min-width: 145px;
-    height: 52px;
-    margin-top: 28px;
+  .sec-strengths-grid {
+    grid-template-columns: 1fr;
   }
 
-  .secondary-school .about,
-  .secondary-school .classes,
-  .secondary-school .teachers {
-    padding: 60px 0;
+  .sec-strengths-grid article {
+    border-right: 0;
+    border-bottom: 1px solid var(--sec-line);
   }
 
-  .secondary-school .aboutInner {
-    gap: 32px;
+  .sec-strengths-grid article:last-child {
+    border-bottom: 0;
   }
 
-  .secondary-school .aboutStats {
-    margin-top: 24px;
+  .sec-collage-badge {
+    top: 12px;
+    padding: 12px 16px;
   }
 
-  .secondary-school .teacherGrid {
-    max-width: 360px;
+  .sec-gallery-heading {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .secondary-school .testimonial {
-    padding: 62px 0 68px;
+  .sec-gallery-track {
+    grid-auto-columns: minmax(78%, 78%);
   }
 
-  .secondary-school .messageStage {
-    min-height: 390px;
+  .sec-message-inner {
+    padding-block: 64px;
   }
 
-  .secondary-school .messageBody p {
-    font-size: 13px;
-    line-height: 1.8;
+  .sec-message-stage {
+    min-height: 340px;
   }
 
-  .secondary-school .imageStrip {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .secondary-school .imageStrip img {
-    height: 130px;
+  .sec-admissions {
+    padding-block: 72px;
   }
 }
 
@@ -780,5 +1083,10 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .sec-reveal {
+    opacity: 1;
+    transform: none;
   }
 }
